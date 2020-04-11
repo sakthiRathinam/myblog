@@ -48,17 +48,19 @@
 
                     <form method="POST">
 
+                        {% csrf_token %}
+
                         <div class="field has-addons">
 
                             <div class="control is-expanded">
 
-                                <input class="input" type="text" placeholder="City Name">
+                                {{ form.name }}
 
                             </div>
 
                             <div class="control">
 
-                                <button class="button is-info">
+                                <button type="submit" class="button is-info">
 
                                     Add City
 
@@ -86,6 +88,8 @@
 
                 <div class="column is-offset-4 is-4">
 
+                    {% for city_weather in weather_data %}
+
                     <div class="box">
 
                         <article class="media">
@@ -94,7 +98,7 @@
 
                                 <figure class="image is-50x50">
 
-                                    <img src="http://openweathermap.org/img/w/10d.png" alt="Image">
+                                    <img src="http://openweathermap.org/img/w/{{ city_weather.icon }}.png" alt="Image">
 
                                 </figure>
 
@@ -106,13 +110,13 @@
 
                                     <p>
 
-                                        <span class="title">Las Vegas</span>
+                                        <span class="title">{{ city_weather.city }}</span>
 
                                         <br>
 
-                                        <span class="subtitle">29° F</span>
+                                        <span class="subtitle">{{ city_weather.temperature }}° F</span>
 
-                                        <br> thunderstorm with heavy rain
+                                        <br> {{ city_weather.description }}
 
                                     </p>
 
@@ -123,6 +127,8 @@
                         </article>
 
                     </div>
+
+                    {% endfor %}
 
                 </div>
 
